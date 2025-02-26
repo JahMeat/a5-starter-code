@@ -51,7 +51,6 @@ def value_iteration(
         best_val = max([q_table[(s, a)] for a in mdp.actions])
         new_v_table[s] = best_val
         max_delta = max(max_delta, abs(best_val - v_table[s]))
-    
     # ***  END OF YOUR CODE  ***
     return new_v_table, q_table, max_delta
 
@@ -74,7 +73,13 @@ def extract_policy(
             A Policy maps nonterminal states to actions.
     """
     # *** BEGIN OF YOUR CODE ***
+    policy = {}
+    for s in mdp.nonterminal_states:
+        q_table_s = {a: q_table[(s, a)] for a in mdp.actions}
+        best_action = max(q_table_s, key=q_table_s.get)
+        policy[s] = best_action
 
+    return policy
 
 def q_update(
         mdp: tm.TohMdp, q_table: tm.QTable,
@@ -93,6 +98,14 @@ def q_update(
     """
     state, action, reward, next_state = transition
     # *** BEGIN OF YOUR CODE ***
+    if next_state == mdp.terminal:
+        best_next_value = 0.0
+    else:
+        best_next_value = max(q_table[(next_state, a)] for a in mdp.actions)
+        
+    original_q = q_table[(state, action)]
+    q_table[(state, action)] = original_q + alpha * (reward + mdp.config.gamma * best_next_value - original_q)
+    # ***  END OF YOUR CODE  ***
 
 
 def extract_v_table(mdp: tm.TohMdp, q_table: tm.QTable) -> tm.VTable:
