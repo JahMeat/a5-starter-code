@@ -155,6 +155,10 @@ def choose_next_action(
             The chosen action.
     """
     # *** BEGIN OF YOUR CODE ***
+    q_values = {a: q_table[(state, a)] for a in mdp.actions}
+    max_q = max(q_values.values())
+    best_actions = [a for a, q in q_values.items() if q == max_q]
+    return epsilon_greedy(best_actions, epsilon)
 
 
 def custom_epsilon(n_step: int) -> float:
@@ -170,6 +174,7 @@ def custom_epsilon(n_step: int) -> float:
             epsilon value when choosing the nth step.
     """
     # *** BEGIN OF YOUR CODE ***
+    return max(0.1, 1 / (1 + 0.001 * n_step))
 
 
 def custom_alpha(n_step: int) -> float:
