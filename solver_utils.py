@@ -1,3 +1,7 @@
+# Partnership? YES
+# Submitting partner: Jah Chen
+# Other partner: Eugene Cheung
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from typing import Tuple, Callable, List

@@ -1,9 +1,35 @@
-Name: John Doe
-Student ID: 1111111
-Email: johndoe@uw.edu
+# Partnership? YES
+# Submitting partner: Jah Chen
+# Other partner: Eugene Cheung
+
+
+Name: Jah Chen, Eugene Cheung
+Student ID: 2235225, 1251085
+Email: jah0311@uw.edu, eugenus1@uw.edu 
 
 1. In the context of the Towers-of-Hanoi World MDP, explain how the Value Iteration algorithm uses the Bellman equations to iteratively compute the value table. (5 points)
 
+For each iteration in value iteration, the algorithm goes through each non-terminal state to construct an optimal policy.
+For each non-terminal state, the algorithm uses the bellman equations to compute the expected value (q-value) for each allowable action.
+After evaluating each action in each state, the bellman equations then chooses the most optimal value or action to take and adds that
+to the value table.
+This is done iteratively which effectively slowly populates each state value from the default 0, the states closest to the terminal state
+gets populated first then expands outward util all states are populated. Beyond that, each iteration will slightly change the value in each 
+state until it converges.
+
 2. How did you decide your custom epsilon function? What thoughts went into that and what would you change to further optimize your exploration? If your function was strong, explain why. (5 points)
 
+The custom epsilon function was designed to balance exploration and exploitation by gradually reducing the epsilon value over time. Initially, a higher epsilon value was chosen to encourage exploration of the state space, 
+allowing the algorithm to gather more information about the environment. As the iterations progressed, the epsilon value was decreased to favor exploitation of the learned policy, 
+ensuring that the algorithm converges to an optimal solution. A exponential decay function was chosen for its effectiveness in gradually shifting the focus from exploration to exploitation
+in a slow but controlled manner. 
+To further optimize exploration, one could experiment with different decay functions, such as linear decay or adaptive methods that adjust epsilon based on the agent's performance. 
+
 3. What is another exploration strategy other than epsilon-greedy that you believe would fit well with the Towers of Hanoi formulation? Why? (5 points)
+
+Another exploration strategy that would fit well with the Towers of Hanoi formulation is Dijkstra's algorithm. Dijkstra's algorithm is a graph search algorithm that finds the shortest path from a starting node to 
+all other nodes in a weighted graph. In the context of the Towers of Hanoi, each state can be considered as a node, and each action (moving a disk) can be considered as an edge with a uniform cost.
+Using Dijkstra's algorithm, the agent can systematically explore the state space by always expanding the least costly path first. This ensures that the agent finds the shortest sequence of moves to reach the goal state. 
+The advantage of using Dijkstra's algorithm is that it guarantees finding the optimal solution without the need for exploration-exploitation trade-offs, as it always follows the path with the minimum cumulative cost.
+This approach is particularly suitable for the Towers of Hanoi problem because the state space is well-defined, and the cost of each move is uniform. By leveraging Dijkstra's algorithm, the agent can efficiently navigate 
+through the state space and find the optimal sequence of moves to solve the puzzle.
